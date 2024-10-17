@@ -1,6 +1,5 @@
 import argparse
 import os
-import random
 
 import dgl
 
@@ -11,6 +10,7 @@ from ogb.lsc import PCQM4MDataset, PCQM4MEvaluator
 from ogb.utils import smiles2graph
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+import secrets
 
 
 def collate_dgl(graphs):
@@ -146,7 +146,7 @@ def main():
 
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
-    random.seed(args.seed)
+    secrets.SystemRandom().seed(args.seed)
 
     if torch.cuda.is_available():
         torch.cuda.manual_seed(args.seed)

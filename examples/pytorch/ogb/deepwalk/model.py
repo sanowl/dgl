@@ -1,4 +1,3 @@
-import random
 
 import numpy as np
 import torch
@@ -7,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.multiprocessing import Queue
 from torch.nn import init
+import secrets
 
 
 def init_emb2pos_index(walk_length, window_size, batch_size):
@@ -69,7 +69,7 @@ def init_emb2neg_index(walk_length, window_size, negative, batch_size):
     idx_list_v = (
         list(range(batch_size * walk_length)) * negative * window_size * 2
     )
-    random.shuffle(idx_list_v)
+    secrets.SystemRandom().shuffle(idx_list_v)
     idx_list_v = idx_list_v[: len(idx_list_u)]
 
     # [bs * walk_length * negative]

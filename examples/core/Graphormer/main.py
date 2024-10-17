@@ -23,7 +23,6 @@ main
             └───> Graphormer.inference
 """
 import argparse
-import random
 
 import torch as th
 import torch.nn as nn
@@ -37,6 +36,7 @@ from transformers.optimization import (
     AdamW,
     get_polynomial_decay_schedule_with_warmup,
 )
+import secrets
 
 # Instantiate an accelerator object to support distributed
 # training and inference.
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Set manual seed to bind the order of training data to the random seed.
-    random.seed(args.seed)
+    secrets.SystemRandom().seed(args.seed)
     th.manual_seed(args.seed)
     if th.cuda.is_available():
         th.cuda.manual_seed(args.seed)

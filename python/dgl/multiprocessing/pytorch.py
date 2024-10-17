@@ -1,5 +1,4 @@
 """PyTorch multiprocessing wrapper."""
-import random
 import traceback
 from _thread import start_new_thread
 from functools import wraps
@@ -8,6 +7,7 @@ import torch
 import torch.multiprocessing as mp
 
 from ..utils import create_shared_mem_array, get_shared_mem_array
+import secrets
 
 
 def thread_wrapped_func(func):
@@ -88,7 +88,7 @@ def call_once_and_share(func, shape, dtype, rank=0):
     if current_rank == rank:
         # PyTorch Lightning 1.6+ seems to set the random seed during process spawning
         # to the same seed value.
-        random_ = random.Random()
+        random_ = secrets.SystemRandom().Random()
         id_ = random_.getrandbits(32)
         name = _get_shared_mem_name(id_)
         result = create_shared_mem_array(name, shape, dtype)

@@ -1,6 +1,7 @@
 import argparse, os, pickle, time
 import random
 import sys
+import secrets
 
 sys.path.append("..")
 
@@ -333,7 +334,7 @@ if MODE == "selectbydensity":
         import random
 
         if len(draw_densities) > 10000:
-            samples_idx = random.sample(range(len(draw_minvalues)), 10000)
+            samples_idx = secrets.SystemRandom().sample(range(len(draw_minvalues)), 10000)
             ax.plot(
                 draw_densities[random],
                 draw_minvalues[random],

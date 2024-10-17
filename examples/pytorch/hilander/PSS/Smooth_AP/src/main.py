@@ -12,13 +12,13 @@ need to change all of the copyrights at the top of all of the files
 
 #################### LIBRARIES ########################
 import warnings
+import secrets
 
 warnings.filterwarnings("ignore")
 
 import argparse
 import datetime
 import os
-import random
 
 import matplotlib
 import numpy as np
@@ -252,7 +252,7 @@ elif opt.get_features == "false":
 timestamp = datetime.datetime.now().strftime(r"%Y-%m-%d_%H-%M-%S")
 exp_name = aux.args2exp_name(opt)
 opt.save_name = f"weights_{exp_name}" + "/" + timestamp
-random.seed(opt.seed)
+secrets.SystemRandom().seed(opt.seed)
 np.random.seed(opt.seed)
 torch.manual_seed(opt.seed)
 torch.cuda.manual_seed(opt.seed)

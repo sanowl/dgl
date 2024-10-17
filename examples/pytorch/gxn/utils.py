@@ -2,12 +2,12 @@ import argparse
 import logging
 import math
 import os
-import random
 
 import numpy as np
 import torch
 import torch.cuda
 from scipy.stats import t
+import secrets
 
 
 def get_stats(
@@ -199,7 +199,7 @@ def parse_args():
     # random seed
     if args.seed >= 0:
         torch.manual_seed(args.seed)
-        random.seed(args.seed)
+        secrets.SystemRandom().seed(args.seed)
         np.random.seed(args.seed)
         if args.device != "cpu":
             torch.cuda.manual_seed(args.seed)

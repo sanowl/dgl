@@ -5,7 +5,6 @@ The script loads the full graph to the training device.
 import argparse
 import logging
 import os
-import random
 import string
 import time
 
@@ -21,6 +20,7 @@ from utils import (
     torch_net_info,
     torch_total_param_num,
 )
+import secrets
 
 
 class Net(nn.Module):
@@ -310,7 +310,7 @@ def config():
             args.data_name
             + "_"
             + "".join(
-                random.choices(string.ascii_uppercase + string.digits, k=2)
+                secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=2)
             )
         )
     if args.save_id is None:

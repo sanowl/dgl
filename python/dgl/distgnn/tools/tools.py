@@ -6,7 +6,6 @@ Copyright (c) 2021 Intel Corporation
 """
 
 import os
-import random
 
 import requests
 import torch as th
@@ -15,6 +14,7 @@ from scipy.io import mmread
 import dgl
 from dgl.base import DGLError
 from dgl.data.utils import load_graphs, save_graphs, save_tensors
+import secrets
 
 
 def rep_per_node(prefix, num_community):
@@ -113,7 +113,7 @@ def proteins_mtx2dgl():
         val_mask[train_size + test_size + i] = True
 
     for i in range(n):
-        label[i] = random.choice(range(nlabels))
+        label[i] = secrets.choice(range(nlabels))
 
     g.ndata["feat"] = feats
     g.ndata["train_mask"] = train_mask

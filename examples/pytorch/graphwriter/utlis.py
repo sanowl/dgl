@@ -1,11 +1,11 @@
 import json
 import pickle
-import random
 
 import dgl
 
 import numpy as np
 import torch
+import secrets
 
 NODE_TYPE = {"entity": 0, "root": 1, "relation": 2}
 
@@ -331,7 +331,7 @@ class BucketSampler(torch.utils.data.Sampler):
             else:
                 t3.append(perm[i])
         datas = [t1, t2, t3]
-        random.shuffle(datas)
+        secrets.SystemRandom().shuffle(datas)
         idxs = sum(datas, [])
         batch = []
 

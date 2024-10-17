@@ -4,7 +4,6 @@
 import argparse
 import math
 import os
-import random
 import time
 
 import dgl
@@ -17,6 +16,7 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import AutoMinorLocator, MultipleLocator
 from models import GAT
 from ogb.nodeproppred import DglNodePropPredDataset, Evaluator
+import secrets
 
 epsilon = 1 - math.log(2)
 
@@ -27,7 +27,7 @@ n_node_feats, n_classes = 0, 0
 
 
 def seed(seed=0):
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
