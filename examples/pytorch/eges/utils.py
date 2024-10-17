@@ -1,5 +1,4 @@
 import argparse
-import random
 from datetime import datetime
 
 import dgl
@@ -7,6 +6,7 @@ import dgl
 import networkx as nx
 import numpy as np
 import torch as th
+import secrets
 
 
 def init_args():
@@ -209,8 +209,7 @@ def split_train_test_graph(graph):
     """
     test_edges = []
     neg_sampler = dgl.dataloading.negative_sampler.Uniform(1)
-    sampled_edge_ids = random.sample(
-        range(graph.num_edges()), int(graph.num_edges() / 3)
+    sampled_edge_ids = secrets.SystemRandom().sample(range(graph.num_edges()), int(graph.num_edges() / 3)
     )
     for edge_id in sampled_edge_ids:
         src, dst = graph.find_edges(edge_id)

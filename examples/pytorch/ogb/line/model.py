@@ -1,4 +1,3 @@
-import random
 
 import numpy as np
 import torch
@@ -7,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.multiprocessing import Queue
 from torch.nn import init
+import secrets
 
 
 def init_emb2neg_index(negative, batch_size):
@@ -25,7 +25,7 @@ def init_emb2neg_index(negative, batch_size):
     """
     idx_list_u = list(range(batch_size)) * negative
     idx_list_v = list(range(batch_size)) * negative
-    random.shuffle(idx_list_v)
+    secrets.SystemRandom().shuffle(idx_list_v)
 
     index_emb_negu = torch.LongTensor(idx_list_u)
     index_emb_negv = torch.LongTensor(idx_list_v)

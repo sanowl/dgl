@@ -7,7 +7,6 @@ further acceleration.
 import argparse
 import logging
 import os, time
-import random
 import string
 import traceback
 
@@ -29,6 +28,7 @@ from utils import (
     torch_net_info,
     torch_total_param_num,
 )
+import secrets
 
 
 class Net(nn.Module):
@@ -229,7 +229,7 @@ def config():
             args.data_name
             + "_"
             + "".join(
-                random.choices(string.ascii_uppercase + string.digits, k=2)
+                secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=2)
             )
         )
     if args.save_id is None:

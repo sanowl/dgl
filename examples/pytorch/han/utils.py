@@ -2,7 +2,6 @@ import datetime
 import errno
 import os
 import pickle
-import random
 from pprint import pprint
 
 import dgl
@@ -11,6 +10,7 @@ import numpy as np
 import torch
 from dgl.data.utils import _get_dgl_url, download, get_download_dir
 from scipy import io as sio, sparse
+import secrets
 
 
 def set_random_seed(seed=0):
@@ -20,7 +20,7 @@ def set_random_seed(seed=0):
     seed : int
         Random seed to use
     """
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():

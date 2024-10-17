@@ -1,5 +1,4 @@
 import argparse
-import random
 import warnings
 
 import dgl
@@ -7,6 +6,7 @@ import dgl
 import numpy as np
 import torch as th
 import torch.nn as nn
+import secrets
 
 warnings.filterwarnings("ignore")
 
@@ -127,7 +127,7 @@ if __name__ == "__main__":
         model.train()
         optimizer.zero_grad()
 
-        sample_idx = random.sample(node_list, sample_size)
+        sample_idx = secrets.SystemRandom().sample(node_list, sample_size)
 
         g = dgl.node_subgraph(graph, sample_idx)
         dg = dgl.node_subgraph(diff_graph, sample_idx)

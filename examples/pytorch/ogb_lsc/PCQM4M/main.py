@@ -1,6 +1,5 @@
 import argparse
 import os
-import random
 
 import dgl
 
@@ -13,6 +12,7 @@ from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
+import secrets
 
 reg_criterion = torch.nn.L1Loss()
 
@@ -186,7 +186,7 @@ def main():
 
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
-    random.seed(args.seed)
+    secrets.SystemRandom().seed(args.seed)
 
     if torch.cuda.is_available():
         torch.cuda.manual_seed(args.seed)

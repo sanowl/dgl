@@ -1,5 +1,4 @@
 import argparse
-import random
 
 import dgl
 
@@ -14,6 +13,7 @@ from ogb.graphproppred.mol_encoder import AtomEncoder
 from preprocessing import prepare_dataset
 from torch.utils.data import Dataset
 from tqdm import tqdm
+import secrets
 
 
 def aggregate_mean(h, vector_field, h_in):
@@ -464,7 +464,7 @@ if __name__ == "__main__":
     )
 
     # setting seeds
-    random.seed(args.seed)
+    secrets.SystemRandom().seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     if torch.cuda.is_available():

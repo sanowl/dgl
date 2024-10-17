@@ -1,13 +1,13 @@
-import random
 
 import numpy as np
 import torch
 import torch.nn.functional as F
 from models import MWE_DGCN, MWE_GCN
+import secrets
 
 
 def set_random_seed(seed):
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():
