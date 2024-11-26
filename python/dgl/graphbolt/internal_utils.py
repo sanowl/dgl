@@ -5,10 +5,9 @@ import os
 import platform
 import warnings
 from collections.abc import Mapping, Sequence
-
-import requests
 import torch
 from tqdm.auto import tqdm
+from security import safe_requests
 
 try:
     from packaging import version  # pylint: disable=unused-import
@@ -250,7 +249,7 @@ def download(
             try:
                 if log:
                     print("Downloading %s from %s..." % (fname, url))
-                r = requests.get(url, stream=True, verify=verify_ssl)
+                r = safe_requests.get(url, stream=True, verify=verify_ssl)
                 if r.status_code != 200:
                     raise RuntimeError("Failed downloading url %s" % url)
                 # Get the total file size.

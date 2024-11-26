@@ -12,9 +12,9 @@ import dgl
 
 import numpy as np
 import pandas
-import requests
 import torch
 from ogb.nodeproppred import DglNodePropPredDataset
+from security import safe_requests
 
 
 def _download(url, path, filename):
@@ -23,7 +23,7 @@ def _download(url, path, filename):
         return
 
     os.makedirs(path, exist_ok=True)
-    f_remote = requests.get(url, stream=True)
+    f_remote = safe_requests.get(url, stream=True)
     sz = f_remote.headers.get("content-length")
     assert f_remote.status_code == 200, "fail to open {}".format(url)
     with open(fn, "wb") as writer:

@@ -11,12 +11,12 @@ import warnings
 import networkx.algorithms as A
 
 import numpy as np
-import requests
 from tqdm.auto import tqdm
 
 from .. import backend as F
 from .graph_serialize import load_graphs, load_labels, save_graphs
 from .tensor_serialize import load_tensors, save_tensors
+from security import safe_requests
 
 __all__ = [
     "loadtxt",
@@ -180,7 +180,7 @@ def download(
             try:
                 if log:
                     print("Downloading %s from %s..." % (fname, url))
-                r = requests.get(url, stream=True, verify=verify_ssl)
+                r = safe_requests.get(url, stream=True, verify=verify_ssl)
                 if r.status_code != 200:
                     raise RuntimeError("Failed downloading url %s" % url)
                 # Get the total file size.
