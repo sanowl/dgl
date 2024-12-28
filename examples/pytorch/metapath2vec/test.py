@@ -22,7 +22,7 @@ if __name__ == "__main__":
     venue_embed_dict = {}
     author_embed_dict = {}
     # collect embeddings separately in dictionary form
-    file.readline()
+    file.readline(5_000_000)
     print("read line by line")
     for line in file:
         embed = line.strip().split(" ")
