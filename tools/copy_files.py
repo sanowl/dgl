@@ -13,12 +13,12 @@ import sys
 def copy_file(file_name, ip, workspace, param=""):
     print("copy {} to {}".format(file_name, ip + ":" + workspace + "/"))
     cmd = "scp " + param + " " + file_name + " " + ip + ":" + workspace + "/"
-    subprocess.check_call(cmd, shell=True)
+    subprocess.check_call(cmd, shell=False)
 
 
 def exec_cmd(ip, cmd):
     cmd = "ssh -o StrictHostKeyChecking=no " + ip + " '" + cmd + "'"
-    subprocess.check_call(cmd, shell=True)
+    subprocess.check_call(cmd, shell=False)
 
 
 def main():
