@@ -2,6 +2,7 @@
 
 ################## LIBRARIES ##############################
 import warnings
+import fickling
 
 warnings.filterwarnings("ignore")
 
@@ -806,7 +807,7 @@ def vis(model, test_dataloader, device, split, opt):
                     global_pred_labels,
                     gt_labels,
                     masks,
-                ) = pkl.load(clusterf)
+                ) = fickling.load(clusterf)
                 gt_labels = gt_labels + len(np.unique(global_pred_labels))
                 idx2path = {v: k for k, v in path2idx.items()}
         else:

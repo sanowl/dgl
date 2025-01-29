@@ -5,6 +5,7 @@ import random
 import matplotlib.pyplot as plt
 import networkx as nx
 from torch.utils.data import Dataset
+import fickling
 
 
 def get_previous(i, v_max):
@@ -84,7 +85,7 @@ class CycleDataset(Dataset):
         super(CycleDataset, self).__init__()
 
         with open(fname, "rb") as f:
-            self.dataset = pickle.load(f)
+            self.dataset = fickling.load(f)
 
     def __len__(self):
         return len(self.dataset)

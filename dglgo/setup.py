@@ -20,6 +20,7 @@ setup(
         "ogb>=1.3.3",
         "rdkit-pypi",
         "scikit-learn>=0.20.0",
+        "fickling>=0.1.3,~=0.1.0",
     ],
     package_data={"": ["./*"]},
     include_package_data=True,

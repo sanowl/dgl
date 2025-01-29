@@ -1,7 +1,6 @@
 import datetime
 import errno
 import os
-import pickle
 import random
 from pprint import pprint
 
@@ -11,6 +10,7 @@ import numpy as np
 import torch
 from dgl.data.utils import _get_dgl_url, download, get_download_dir
 from scipy import io as sio, sparse
+import fickling
 
 
 def set_random_seed(seed=0):
@@ -130,7 +130,7 @@ def load_acm(remove_self_loop):
     download(_get_dgl_url(url), path=data_path)
 
     with open(data_path, "rb") as f:
-        data = pickle.load(f)
+        data = fickling.load(f)
 
     labels, features = (
         torch.from_numpy(data["label"].todense()).long(),

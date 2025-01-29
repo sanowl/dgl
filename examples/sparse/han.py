@@ -3,8 +3,6 @@
 (https://arxiv.org/abs/1903.07293)
 """
 
-import pickle
-
 import dgl.sparse as dglsp
 import torch
 import torch.nn as nn
@@ -12,6 +10,7 @@ import torch.nn.functional as F
 
 from dgl.data.utils import _get_dgl_url, download, get_download_dir
 from torch.optim import Adam
+import fickling
 
 
 class GATConv(nn.Module):
@@ -159,7 +158,7 @@ if __name__ == "__main__":
     download(_get_dgl_url(url), path=data_path)
 
     with open(data_path, "rb") as f:
-        data = pickle.load(f)
+        data = fickling.load(f)
 
     # Create sparse adjacency matrices corresponding to two meta paths.
     # Self-loops already added.

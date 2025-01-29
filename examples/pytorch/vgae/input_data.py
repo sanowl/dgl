@@ -5,12 +5,12 @@ since datasets are the same as those in kipf's implementation,
 Their preprocessing source was used as-is.
 *************************************
 """
-import pickle as pkl
 import sys
 
 import networkx as nx
 import numpy as np
 import scipy.sparse as sp
+import fickling
 
 
 def parse_index_file(filename):
@@ -27,9 +27,9 @@ def load_data(dataset):
     for i in range(len(names)):
         with open("data/ind.{}.{}".format(dataset, names[i]), "rb") as f:
             if sys.version_info > (3, 0):
-                objects.append(pkl.load(f, encoding="latin1"))
+                objects.append(fickling.load(f, encoding="latin1"))
             else:
-                objects.append(pkl.load(f))
+                objects.append(fickling.load(f))
     x, tx, allx, graph = tuple(objects)
     test_idx_reorder = parse_index_file(
         "data/ind.{}.test.index".format(dataset)
