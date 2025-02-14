@@ -1,11 +1,11 @@
 import multiprocessing as mp
-import random
 from multiprocessing import get_context
 
 import networkx as nx
 import numpy as np
 import torch
 from tqdm.auto import tqdm
+import secrets
 
 
 def get_communities(remove_feature):
@@ -18,8 +18,8 @@ def get_communities(remove_feature):
     # Randomly rewire 1% edges
     node_list = list(graph.nodes)
     for u, v in graph.edges():
-        if random.random() < 0.01:
-            x = random.choice(node_list)
+        if secrets.SystemRandom().random() < 0.01:
+            x = secrets.choice(node_list)
             if graph.has_edge(u, x):
                 continue
             graph.remove_edge(u, v)
@@ -143,7 +143,7 @@ def merge_dicts(dicts):
 
 def all_pairs_shortest_path(graph, cutoff=None, num_workers=4):
     nodes = list(graph.nodes)
-    random.shuffle(nodes)
+    secrets.SystemRandom().shuffle(nodes)
     pool = mp.Pool(processes=num_workers)
     interval_size = len(nodes) / num_workers
     results = [

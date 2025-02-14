@@ -1,5 +1,4 @@
 import argparse, os, pickle, time
-import random
 
 import sys
 
@@ -8,6 +7,7 @@ import dgl
 import numpy as np
 import torch
 import torch.optim as optim
+import secrets
 
 sys.path.append("..")
 from dataset import LanderDataset
@@ -59,7 +59,7 @@ def setup_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     torch.backends.cudnn.deterministic = True
 
 

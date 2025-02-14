@@ -3,7 +3,6 @@ server and clients."""
 import abc
 import os
 import pickle
-import random
 
 import numpy as np
 
@@ -12,6 +11,7 @@ from .._ffi.function import _init_api
 from .._ffi.object import ObjectBase, register_object
 from ..base import DGLError
 from .constants import SERVER_EXIT
+import secrets
 
 __all__ = [
     "set_rank",
@@ -700,8 +700,7 @@ def send_request_to_machine(target, request):
     service_id = request.service_id
     msg_seq = incr_msg_seq()
     client_id = get_rank()
-    server_id = random.randint(
-        target * get_num_server_per_machine(),
+    server_id = secrets.SystemRandom().randint(target * get_num_server_per_machine(),
         (target + 1) * get_num_server_per_machine() - 1,
     )
     data, tensors = serialize_to_payload(request)
@@ -871,8 +870,7 @@ def remote_call(target_and_requests, timeout=0):
         service_id = request.service_id
         msg_seq = incr_msg_seq()
         client_id = get_rank()
-        server_id = random.randint(
-            target * get_num_server_per_machine(),
+        server_id = secrets.SystemRandom().randint(target * get_num_server_per_machine(),
             (target + 1) * get_num_server_per_machine() - 1,
         )
         data, tensors = serialize_to_payload(request)
@@ -940,8 +938,7 @@ def send_requests_to_machine(target_and_requests):
         msg_seq = incr_msg_seq()
         client_id = get_rank()
 
-        server_id = random.randint(
-            target * get_num_server_per_machine(),
+        server_id = secrets.SystemRandom().randint(target * get_num_server_per_machine(),
             (target + 1) * get_num_server_per_machine() - 1,
         )
         data, tensors = serialize_to_payload(request)

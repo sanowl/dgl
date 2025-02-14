@@ -3,7 +3,6 @@
 
 import argparse
 import os
-import random
 import sys
 import time
 
@@ -24,6 +23,7 @@ from matplotlib.ticker import AutoMinorLocator, MultipleLocator
 from models import GAT
 from ogb.nodeproppred import DglNodePropPredDataset, Evaluator
 from torch import nn
+import secrets
 
 device = None
 dataset = "ogbn-proteins"
@@ -31,7 +31,7 @@ n_node_feats, n_edge_feats, n_classes = 0, 8, 112
 
 
 def seed(seed=0):
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)

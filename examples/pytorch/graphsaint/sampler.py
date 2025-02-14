@@ -1,6 +1,5 @@
 import math
 import os
-import random
 import time
 
 import dgl
@@ -11,6 +10,7 @@ import scipy
 import torch as th
 from dgl.sampling import pack_traces, random_walk
 from torch.utils.data import DataLoader
+import secrets
 
 
 # The base class of sampler
@@ -156,7 +156,7 @@ class SAINTSampler:
         self.train_g.edata["w"] = th.Tensor(aggr_norm)
         self.__compute_degree_norm()  # basically normalizing adjacent matrix
 
-        random.shuffle(self.subgraphs)
+        secrets.SystemRandom().shuffle(self.subgraphs)
         self.__clear__()
         print("The number of subgraphs is: ", len(self.subgraphs))
 

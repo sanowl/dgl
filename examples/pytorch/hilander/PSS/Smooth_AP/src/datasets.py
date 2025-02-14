@@ -5,12 +5,12 @@ import pickle
 import warnings
 
 from numpy.core.arrayprint import IntegerFormat
+import secrets
 
 warnings.filterwarnings("ignore")
 
 import copy
 import os
-import random
 
 import numpy as np
 import pandas as pd
@@ -596,10 +596,10 @@ class TrainDatasetsmoothap(Dataset):
         image_dict = copy.deepcopy(self.image_dict)
         print("shuffling data")
         for sub in image_dict:
-            random.shuffle(image_dict[sub])
+            secrets.SystemRandom().shuffle(image_dict[sub])
 
         classes = [*image_dict]
-        random.shuffle(classes)
+        secrets.SystemRandom().shuffle(classes)
         total_batches = []
         batch = []
         finished = 0
@@ -621,7 +621,7 @@ class TrainDatasetsmoothap(Dataset):
             else:
                 finished = 1
 
-        random.shuffle(total_batches)
+        secrets.SystemRandom().shuffle(total_batches)
         self.dataset = flatten(flatten(total_batches))
 
     def __getitem__(self, idx):
@@ -703,7 +703,7 @@ class TrainDatasetsmoothap1Head(Dataset):
         classes_U = [*self.image_dict_U]
         # while U_size < len(list(self.image_dict_U)) and U_size < L_size:
         while len(classes_U) != 0:
-            sub_U = random.choice(classes_U)
+            sub_U = secrets.choice(classes_U)
             classes_U.remove(sub_U)
             sub_U_size = len(self.image_dict_U[sub_U])
             if sub_U in [*image_dict]:
@@ -722,10 +722,10 @@ class TrainDatasetsmoothap1Head(Dataset):
         image_dict = self.sample_same_size()
         print("shuffling data")
         for sub in image_dict:
-            random.shuffle(image_dict[sub])
+            secrets.SystemRandom().shuffle(image_dict[sub])
 
         classes = [*image_dict]
-        random.shuffle(classes)
+        secrets.SystemRandom().shuffle(classes)
         total_batches = []
         batch = []
         finished = 0
@@ -747,7 +747,7 @@ class TrainDatasetsmoothap1Head(Dataset):
             else:
                 finished = 1
 
-        random.shuffle(total_batches)
+        secrets.SystemRandom().shuffle(total_batches)
         self.dataset = flatten(flatten(total_batches))
 
     def __getitem__(self, idx):

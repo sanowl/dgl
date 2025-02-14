@@ -1,12 +1,12 @@
 import os
 import pickle as pkl
-import random
 
 import dgl
 
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, Dataset
+import secrets
 
 
 # Split data into train/eval/test
@@ -22,12 +22,12 @@ def split_data(hg, etype_name):
     ui_adj = np.array(hg.adj_external(etype=etype_name).to_dense())
     full_idx = np.where(ui_adj == 0)
 
-    sample = random.sample(range(0, len(full_idx[0])), num_link)
+    sample = secrets.SystemRandom().sample(range(0, len(full_idx[0])), num_link)
     neg_label = [0] * num_link
     neg_data = list(zip(full_idx[0][sample], full_idx[1][sample], neg_label))
 
     full_data = pos_data + neg_data
-    random.shuffle(full_data)
+    secrets.SystemRandom().shuffle(full_data)
 
     train_size = int(len(full_data) * 0.6)
     eval_size = int(len(full_data) * 0.2)

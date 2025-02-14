@@ -1,9 +1,5 @@
 """Network Embedding NN Modules"""
 
-# pylint: disable= invalid-name
-
-import random
-
 import torch
 import torch.nn.functional as F
 from torch import nn
@@ -14,6 +10,7 @@ from ...base import NID
 from ...convert import to_heterogeneous, to_homogeneous
 from ...random import choice
 from ...sampling import random_walk
+import secrets
 
 __all__ = ["DeepWalk", "MetaPath2Vec"]
 
@@ -203,7 +200,7 @@ class DeepWalk(nn.Module):
             neg_idx_list_dst = list(range(batch_size * self.walk_length)) * (
                 self.negative_size * self.window_size * 2
             )
-            random.shuffle(neg_idx_list_dst)
+            secrets.SystemRandom().shuffle(neg_idx_list_dst)
             neg_idx_list_dst = neg_idx_list_dst[: len(neg_idx_list_src)]
             neg_idx_list_dst = torch.LongTensor(neg_idx_list_dst).to(device)
             neg_dst_emb = batch_context_embed[neg_idx_list_dst]

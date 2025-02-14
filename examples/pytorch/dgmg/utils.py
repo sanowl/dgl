@@ -1,6 +1,5 @@
 import datetime
 import os
-import random
 from pprint import pprint
 
 import matplotlib.pyplot as plt
@@ -8,6 +7,7 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.nn as nn
 import torch.nn.init as init
+import secrets
 
 ########################################################################################################################
 #                                                    configuration                                                     #
@@ -67,8 +67,8 @@ def setup(args):
 
     # Seed
     if opts["seed"] is None:
-        opts["seed"] = random.randint(1, 10000)
-    random.seed(opts["seed"])
+        opts["seed"] = secrets.SystemRandom().randint(1, 10000)
+    secrets.SystemRandom().seed(opts["seed"])
     torch.manual_seed(opts["seed"])
 
     # Dataset

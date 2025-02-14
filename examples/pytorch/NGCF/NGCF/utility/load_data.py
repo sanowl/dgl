@@ -1,11 +1,11 @@
 # This file is based on the NGCF author's implementation
 # <https://github.com/xiangwang1223/neural_graph_collaborative_filtering/blob/master/NGCF/utility/load_data.py>.
 # It implements the data processing and graph construction.
-import random as rd
 
 import dgl
 
 import numpy as np
+import secrets
 
 
 class Data(object):
@@ -93,10 +93,10 @@ class Data(object):
 
     def sample(self):
         if self.batch_size <= self.n_users:
-            users = rd.sample(self.exist_users, self.batch_size)
+            users = secrets.SystemRandom().sample(self.exist_users, self.batch_size)
         else:
             users = [
-                rd.choice(self.exist_users) for _ in range(self.batch_size)
+                secrets.choice(self.exist_users) for _ in range(self.batch_size)
             ]
 
         def sample_pos_items_for_u(u, num):

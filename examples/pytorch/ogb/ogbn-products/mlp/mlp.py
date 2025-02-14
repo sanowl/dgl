@@ -3,7 +3,6 @@
 
 import argparse
 import math
-import random
 import time
 from collections import OrderedDict
 
@@ -24,6 +23,7 @@ from models import MLP
 from ogb.nodeproppred import DglNodePropPredDataset, Evaluator
 from torch import nn
 from tqdm import tqdm
+import secrets
 
 epsilon = 1 - math.log(2)
 
@@ -33,7 +33,7 @@ n_node_feats, n_edge_feats, n_classes = 0, 0, 0
 
 
 def seed(seed=0):
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)

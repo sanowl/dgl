@@ -1,7 +1,6 @@
 """Dataset for stochastic block model."""
 import math
 import os
-import random
 
 import numpy as np
 import numpy.random as npr
@@ -11,6 +10,7 @@ from .. import batch
 from ..convert import from_scipy
 from .dgl_dataset import DGLDataset
 from .utils import load_graphs, load_info, save_graphs, save_info
+import secrets
 
 
 def sbm(n_blocks, block_size, p, q, rng=None):
@@ -225,7 +225,7 @@ class SBMMixtureDataset(DGLDataset):
     def _appendix_c(self):
         q = npr.uniform(0, self._avg_deg - math.sqrt(self._avg_deg))
         p = self._k * self._avg_deg - q
-        if random.random() < 0.5:
+        if secrets.SystemRandom().random() < 0.5:
             return p, q
         else:
             return q, p

@@ -2,7 +2,6 @@
 import math
 import os
 import pickle
-import random
 
 import networkx as nx
 import numpy as np
@@ -13,6 +12,7 @@ from ..convert import graph
 from ..transforms import reorder_graph
 from .dgl_dataset import DGLBuiltinDataset
 from .utils import _get_dgl_url, download, load_graphs, save_graphs
+import secrets
 
 
 class BAShapeDataset(DGLBuiltinDataset):
@@ -289,7 +289,7 @@ class BACommunityDataset(DGLBuiltinDataset):
 
     def process(self):
         if self.seed is not None:
-            random.seed(self.seed)
+            secrets.SystemRandom().seed(self.seed)
             np.random.seed(self.seed)
 
         # Construct two BA-SHAPES graphs

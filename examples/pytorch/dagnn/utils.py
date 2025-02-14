@@ -1,8 +1,8 @@
-import random
 
 import numpy as np
 import torch
 from torch.nn import functional as F
+import secrets
 
 
 def evaluate(model, graph, feats, labels, idxs):
@@ -20,12 +20,12 @@ def evaluate(model, graph, feats, labels, idxs):
 
 
 def generate_random_seeds(seed, nums):
-    random.seed(seed)
-    return [random.randint(1, 999999999) for _ in range(nums)]
+    secrets.SystemRandom().seed(seed)
+    return [secrets.SystemRandom().randint(1, 999999999) for _ in range(nums)]
 
 
 def set_random_state(seed):
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available():

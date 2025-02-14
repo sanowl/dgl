@@ -1,10 +1,10 @@
 import os
 import pickle
-import random
 
 import matplotlib.pyplot as plt
 import networkx as nx
 from torch.utils.data import Dataset
+import secrets
 
 
 def get_previous(i, v_max):
@@ -72,7 +72,7 @@ def get_decision_sequence(size):
 def generate_dataset(v_min, v_max, n_samples, fname):
     samples = []
     for _ in range(n_samples):
-        size = random.randint(v_min, v_max)
+        size = secrets.SystemRandom().randint(v_min, v_max)
         samples.append(get_decision_sequence(size))
 
     with open(fname, "wb") as f:

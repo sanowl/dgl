@@ -1,10 +1,10 @@
-import random
 import sys
 
 import numpy as np
 import torch
 from dgl.sampling import global_uniform_negative_sampling
 from scipy.sparse.csgraph import shortest_path
+import secrets
 
 
 def k_hop_subgraph(src, dst, num_hops, g, sample_ratio=1.0, directed=False):
@@ -24,7 +24,7 @@ def k_hop_subgraph(src, dst, num_hops, g, sample_ratio=1.0, directed=False):
         visited = visited.union(fringe)
 
         if sample_ratio < 1.0:
-            fringe = random.sample(fringe, int(sample_ratio * len(fringe)))
+            fringe = secrets.SystemRandom().sample(fringe, int(sample_ratio * len(fringe)))
         if len(fringe) == 0:
             break
 

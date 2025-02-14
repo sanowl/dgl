@@ -7,10 +7,10 @@ This file re-uses implementation from https://github.com/yl-1993/learn-to-cluste
 import json
 import os
 import pickle
-import random
 import time
 
 import numpy as np
+import secrets
 
 
 class TextColors:
@@ -46,7 +46,7 @@ class Timer:
 def set_random_seed(seed, cuda=False):
     import torch
 
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if cuda:
@@ -59,7 +59,7 @@ def l2norm(vec):
 
 
 def is_l2norm(features, size):
-    rand_i = random.choice(range(size))
+    rand_i = secrets.choice(range(size))
     norm_ = np.dot(features[rand_i, :], features[rand_i, :])
     return abs(norm_ - 1) < 1e-6
 
