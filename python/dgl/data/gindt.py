@@ -188,13 +188,13 @@ class GINDataset(DGLBuiltinDataset):
         self.file = self._file_path()
         with open(self.file, "r") as f:
             # line_1 == N, total number of graphs
-            self.N = int(f.readline().strip())
+            self.N = int(f.readline(5_000_000).strip())
 
             for i in range(self.N):
                 if (i + 1) % 10 == 0 and self.verbose is True:
                     print("processing graph {}...".format(i + 1))
 
-                grow = f.readline().strip().split()
+                grow = f.readline(5_000_000).strip().split()
                 # line_2 == [n_nodes, l] is equal to
                 # [node number of a graph, class label of a graph]
                 n_nodes, glabel = [int(w) for w in grow]
@@ -214,7 +214,7 @@ class GINDataset(DGLBuiltinDataset):
                 m_edges = 0
 
                 for j in range(n_nodes):
-                    nrow = f.readline().strip().split()
+                    nrow = f.readline(5_000_000).strip().split()
 
                     # handle edges and attributes(if has)
                     tmp = int(nrow[1]) + 2  # tmp == 2 + #edges

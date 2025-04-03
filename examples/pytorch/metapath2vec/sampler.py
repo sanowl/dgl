@@ -23,7 +23,7 @@ def construct_graph():
     f_4 = open(os.path.join(path, "id_conf.txt"), encoding="ISO-8859-1")
     f_5 = open(os.path.join(path, "paper.txt"), encoding="ISO-8859-1")
     while True:
-        z = f_3.readline()
+        z = f_3.readline(5_000_000)
         if not z:
             break
         z = z.strip().split()
@@ -31,7 +31,7 @@ def construct_graph():
         author_ids.append(identity)
         author_names.append(z[1])
     while True:
-        w = f_4.readline()
+        w = f_4.readline(5_000_000)
         if not w:
             break
         w = w.strip().split()
@@ -39,7 +39,7 @@ def construct_graph():
         conf_ids.append(identity)
         conf_names.append(w[1])
     while True:
-        v = f_5.readline()
+        v = f_5.readline(5_000_000)
         if not v:
             break
         v = v.strip().split()

@@ -31,7 +31,7 @@ def rep_per_node(prefix, num_community):
     fhandle = open(ifile, "r")
     r_dt = {}
 
-    fline = fhandle.readline()  ## reading first line, contains the comment.
+    fline = fhandle.readline(5_000_000)  ## reading first line, contains the comment.
     print(fline)
     for line in fhandle:
         if line[0] == "#":
