@@ -64,7 +64,7 @@ def download_proteins():
     file_name = "subgraph3_iso_vs_iso_30_70length_ALL.m100.propermm.mtx"
     url = url + file_name
     try:
-        req = requests.get(url)
+        req = requests.get(url, timeout=60)
     except:
         raise DGLError(
             "Error: Failed to download Proteins dataset!! Aborting.."

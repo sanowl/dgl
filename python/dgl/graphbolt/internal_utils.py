@@ -250,7 +250,7 @@ def download(
             try:
                 if log:
                     print("Downloading %s from %s..." % (fname, url))
-                r = requests.get(url, stream=True, verify=verify_ssl)
+                r = requests.get(url, stream=True, verify=verify_ssl, timeout=60)
                 if r.status_code != 200:
                     raise RuntimeError("Failed downloading url %s" % url)
                 # Get the total file size.

@@ -23,7 +23,7 @@ def _download(url, path, filename):
         return
 
     os.makedirs(path, exist_ok=True)
-    f_remote = requests.get(url, stream=True)
+    f_remote = requests.get(url, stream=True, timeout=60)
     sz = f_remote.headers.get("content-length")
     assert f_remote.status_code == 200, "fail to open {}".format(url)
     with open(fn, "wb") as writer:
