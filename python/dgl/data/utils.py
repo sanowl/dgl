@@ -17,6 +17,7 @@ from tqdm.auto import tqdm
 from .. import backend as F
 from .graph_serialize import load_graphs, load_labels, save_graphs
 from .tensor_serialize import load_tensors, save_tensors
+import fickling
 
 __all__ = [
     "loadtxt",
@@ -353,7 +354,7 @@ def load_info(path):
         A python dict storing information loaded from disk.
     """
     with open(path, "rb") as pf:
-        info = pickle.load(pf)
+        info = fickling.load(pf)
     return info
 
 

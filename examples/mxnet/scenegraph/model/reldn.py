@@ -1,4 +1,3 @@
-import pickle
 
 import dgl
 
@@ -9,6 +8,7 @@ from dgl.nn.mxnet import GraphConv
 from dgl.utils import toindex
 from mxnet import nd
 from mxnet.gluon import nn
+import fickling
 
 __all__ = ["RelDN"]
 
@@ -75,7 +75,7 @@ class EdgeFreqPrior(nn.Block):
     def __init__(self, prior_pkl):
         super(EdgeFreqPrior, self).__init__()
         with open(prior_pkl, "rb") as f:
-            freq_prior = pickle.load(f)
+            freq_prior = fickling.load(f)
         self.freq_prior = freq_prior
 
     def forward(self, edges):

@@ -1,7 +1,6 @@
 """Synthetic graph datasets."""
 import math
 import os
-import pickle
 import random
 
 import networkx as nx
@@ -13,6 +12,7 @@ from ..convert import graph
 from ..transforms import reorder_graph
 from .dgl_dataset import DGLBuiltinDataset
 from .utils import _get_dgl_url, download, load_graphs, save_graphs
+import fickling
 
 
 class BAShapeDataset(DGLBuiltinDataset):
@@ -793,7 +793,7 @@ class BA2MotifDataset(DGLBuiltinDataset):
     def process(self):
         file_path = os.path.join(self.raw_dir, self.name + ".pkl")
         with open(file_path, "rb") as f:
-            adjs, features, labels = pickle.load(f)
+            adjs, features, labels = fickling.load(f)
 
         self.graphs = []
         self.labels = F.tensor(labels, F.int64)

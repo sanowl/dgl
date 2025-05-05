@@ -8,6 +8,7 @@ from .. import backend as F
 from ..base import DGLError
 from ..partition import metis_partition_assignment
 from .base import Sampler, set_edge_lazy_features, set_node_lazy_features
+import fickling
 
 
 class ClusterGCNSampler(Sampler):
@@ -81,7 +82,7 @@ class ClusterGCNSampler(Sampler):
                     (
                         self.partition_offset,
                         self.partition_node_ids,
-                    ) = pickle.load(f)
+                    ) = fickling.load(f)
             except (EOFError, TypeError, ValueError):
                 raise DGLError(
                     f"The contents in the cache file {cache_path} is invalid. "

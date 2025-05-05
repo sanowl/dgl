@@ -8,6 +8,7 @@ import dgl
 import numpy as np
 import torch
 import torch.optim as optim
+import fickling
 
 sys.path.append("..")
 from dataset import LanderDataset
@@ -68,7 +69,7 @@ def setup_seed(seed):
 ##################
 # Data Preparation
 with open(args.data_path, "rb") as f:
-    path2idx, features, labels, _, masks = pickle.load(f)
+    path2idx, features, labels, _, masks = fickling.load(f)
     # lidx = np.where(masks==0)
     # features = features[lidx]
     # labels = labels[lidx]
