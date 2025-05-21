@@ -50,7 +50,7 @@ def kill_process(ip, port, pids):
             + ip
             + " 'kill {}'".format(pid)
         )
-        subprocess.run(kill_cmd, shell=True)
+        subprocess.run(kill_cmd, shell=False)
         killed_pids.append(pid)
     # It's possible that some of the processes are not killed. Let's try again.
     for i in range(3):
@@ -70,7 +70,7 @@ def kill_process(ip, port, pids):
                     + ip
                     + " 'kill -9 {}'".format(pid)
                 )
-                subprocess.run(kill_cmd, shell=True)
+                subprocess.run(kill_cmd, shell=False)
 
 
 def get_killed_pids(ip, port, killed_pids):
@@ -84,7 +84,7 @@ def get_killed_pids(ip, port, killed_pids):
         + ip
         + " 'ps -p {} -h'".format(killed_pids)
     )
-    res = subprocess.run(ps_cmd, shell=True, stdout=subprocess.PIPE)
+    res = subprocess.run(ps_cmd, shell=False, stdout=subprocess.PIPE)
     pids = []
     for p in res.stdout.decode("utf-8").split("\n"):
         l = p.split()
@@ -130,7 +130,7 @@ def execute_remote(
     # thread func to run the job
     def run(ssh_cmd, state_q):
         try:
-            subprocess.check_call(ssh_cmd, shell=True)
+            subprocess.check_call(ssh_cmd, shell=False)
             state_q.put(0)
         except subprocess.CalledProcessError as err:
             print(f"Called process error {err}")
@@ -164,7 +164,7 @@ def get_remote_pids(ip, port, cmd_regex):
         + ip
         + " 'ps -aux | grep python | grep -v StrictHostKeyChecking'"
     )
-    res = subprocess.run(ps_cmd, shell=True, stdout=subprocess.PIPE)
+    res = subprocess.run(ps_cmd, shell=False, stdout=subprocess.PIPE)
     for p in res.stdout.decode("utf-8").split("\n"):
         l = p.split()
         if len(l) < 2:
@@ -182,7 +182,7 @@ def get_remote_pids(ip, port, cmd_regex):
         + ip
         + " 'pgrep -P {}'".format(pid_str)
     )
-    res = subprocess.run(ps_cmd, shell=True, stdout=subprocess.PIPE)
+    res = subprocess.run(ps_cmd, shell=False, stdout=subprocess.PIPE)
     pids1 = res.stdout.decode("utf-8").split("\n")
     all_pids = []
     for pid in set(pids + pids1):
