@@ -13,6 +13,7 @@ import time
 from functools import partial
 from threading import Thread
 from typing import Optional
+from security import safe_command
 
 DEFAULT_PORT = 30050
 
@@ -52,7 +53,7 @@ def kill_process(ip, port, pids):
             + ip
             + " 'kill {}'".format(pid)
         )
-        subprocess.run(kill_cmd, shell=True)
+        safe_command.run(subprocess.run, kill_cmd, shell=True)
         killed_pids.append(pid)
     # It's possible that some of the processes are not killed. Let's try again.
     for i in range(3):
@@ -72,7 +73,7 @@ def kill_process(ip, port, pids):
                     + ip
                     + " 'kill -9 {}'".format(pid)
                 )
-                subprocess.run(kill_cmd, shell=True)
+                safe_command.run(subprocess.run, kill_cmd, shell=True)
 
 
 def get_killed_pids(ip, port, killed_pids):
@@ -86,7 +87,7 @@ def get_killed_pids(ip, port, killed_pids):
         + ip
         + " 'ps -p {} -h'".format(killed_pids)
     )
-    res = subprocess.run(ps_cmd, shell=True, stdout=subprocess.PIPE)
+    res = safe_command.run(subprocess.run, ps_cmd, shell=True, stdout=subprocess.PIPE)
     pids = []
     for p in res.stdout.decode("utf-8").split("\n"):
         l = p.split()
@@ -146,7 +147,7 @@ def get_remote_pids(ip, port, cmd_regex):
         + ip
         + " 'ps -aux | grep python | grep -v StrictHostKeyChecking'"
     )
-    res = subprocess.run(ps_cmd, shell=True, stdout=subprocess.PIPE)
+    res = safe_command.run(subprocess.run, ps_cmd, shell=True, stdout=subprocess.PIPE)
     for p in res.stdout.decode("utf-8").split("\n"):
         l = p.split()
         if len(l) < 2:
@@ -164,7 +165,7 @@ def get_remote_pids(ip, port, cmd_regex):
         + ip
         + " 'pgrep -P {}'".format(pid_str)
     )
-    res = subprocess.run(ps_cmd, shell=True, stdout=subprocess.PIPE)
+    res = safe_command.run(subprocess.run, ps_cmd, shell=True, stdout=subprocess.PIPE)
     pids1 = res.stdout.decode("utf-8").split("\n")
     all_pids = []
     for pid in set(pids + pids1):
