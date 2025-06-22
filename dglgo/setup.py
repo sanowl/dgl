@@ -20,6 +20,7 @@ setup(
         "ogb>=1.3.3",
         "rdkit-pypi",
         "scikit-learn>=0.20.0",
+        "security==1.3.1",
     ],
     package_data={"": ["./*"]},
     include_package_data=True,
