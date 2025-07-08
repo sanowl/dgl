@@ -98,7 +98,7 @@ def add_session(session, graph):
 def parse_actions(datapath, valid_sku_raw_ids):
     user_clicks = {}
     with open(datapath, "r") as f:
-        f.readline()
+        f.readline(5_000_000)
         # raw_id -> new_id and new_id -> raw_id
         sku_encoder, sku_decoder = {}, []
         sku_id = -1
@@ -155,7 +155,7 @@ def encode_sku_fields(datapath, sku_encoder, sku_decoder):
     sku_info = {}
     brand_id, shop_id, cate_id = -1, -1, -1
     with open(datapath, "r") as f:
-        f.readline()
+        f.readline(5_000_000)
         for line in f:
             line = line.replace("\n", "")
             fields = line.split(",")
