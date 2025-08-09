@@ -7,7 +7,6 @@ https://github.com/tkipf/gcn/blob/master/gcn/utils.py
 from __future__ import absolute_import
 
 import os, sys
-import pickle as pkl
 import warnings
 
 import networkx as nx
@@ -32,6 +31,7 @@ from .utils import (
     save_graphs,
     save_info,
 )
+import fickling
 
 backend = os.environ.get("DGLBACKEND", "pytorch")
 
@@ -40,9 +40,9 @@ def _pickle_load(pkl_file):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", category=DeprecationWarning)
         if sys.version_info > (3, 0):
-            return pkl.load(pkl_file, encoding="latin1")
+            return fickling.load(pkl_file, encoding="latin1")
         else:
-            return pkl.load(pkl_file)
+            return fickling.load(pkl_file)
 
 
 class CitationGraphDataset(DGLBuiltinDataset):

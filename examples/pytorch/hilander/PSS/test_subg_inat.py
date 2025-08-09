@@ -1,6 +1,7 @@
 import argparse, os, pickle, time
 import random
 import sys
+import fickling
 
 sys.path.append("..")
 
@@ -90,7 +91,7 @@ else:
 ##################
 # Data Preparation
 with open(args.data_path, "rb") as f:
-    loaded_data = pickle.load(f)
+    loaded_data = fickling.load(f)
     path2idx, features, pred_labels, labels, masks = loaded_data
 
 idx2path = {v: k for k, v in path2idx.items()}

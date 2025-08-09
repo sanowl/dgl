@@ -1,10 +1,10 @@
 # repo originally forked from https://github.com/Confusezius/Deep-Metric-Learning-Baselines
 
 ################# LIBRARIES ###############################
-import pickle
 import warnings
 
 from numpy.core.arrayprint import IntegerFormat
+import fickling
 
 warnings.filterwarnings("ignore")
 
@@ -180,7 +180,7 @@ def give_inaturalist_datasets_for_features(opt):
                 global_pred_labels,
                 gt_labels,
                 masks,
-            ) = pickle.load(clusterf)
+            ) = fickling.load(clusterf)
             gt_labels = gt_labels + len(np.unique(global_pred_labels))
 
             for path, idx in path2idx.items():
@@ -287,8 +287,6 @@ def give_inat_datasets_finetune_1head(testset, cluster_label_path, opt):
     Returns:
         dict of PyTorch datasets for training, testing and evaluation.
     """
-    # Load cluster labels from hilander results.
-    import pickle
 
     train_image_dict, val_image_dict, cluster_image_dict = {}, {}, {}
     with open(cluster_label_path, "rb") as clusterf:
@@ -298,7 +296,7 @@ def give_inat_datasets_finetune_1head(testset, cluster_label_path, opt):
             global_pred_labels,
             gt_labels,
             masks,
-        ) = pickle.load(clusterf)
+        ) = fickling.load(clusterf)
 
         for path, idx in path2idx.items():
             if global_pred_labels[idx] == -1:

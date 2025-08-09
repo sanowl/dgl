@@ -18,6 +18,7 @@ from .utils import (
     save_graphs,
     Subset,
 )
+import fickling
 
 
 class PeptidesStructuralDataset(DGLDataset):
@@ -253,7 +254,7 @@ class PeptidesStructuralDataset(DGLDataset):
             Dict with 'train', 'val', 'test', splits indices.
         """
         with open(self.split_data_path, "rb") as file:
-            split_dict = pickle.load(file)
+            split_dict = fickling.load(file)
         for key in split_dict.keys():
             split_dict[key] = F.zerocopy_from_numpy(split_dict[key])
         return split_dict
@@ -501,7 +502,7 @@ class PeptidesFunctionalDataset(DGLDataset):
             Dict with 'train', 'val', 'test', splits indices.
         """
         with open(self.split_data_path, "rb") as file:
-            split_dict = pickle.load(file)
+            split_dict = fickling.load(file)
         for key in split_dict.keys():
             split_dict[key] = F.zerocopy_from_numpy(split_dict[key])
         return split_dict
@@ -729,7 +730,7 @@ class VOCSuperpixelsDataset(DGLDataset):
 
     def process(self):
         with open(self.raw_data_path, "rb") as file:
-            graphs = pickle.load(file)
+            graphs = fickling.load(file)
 
         for idx in tqdm(
             range(len(graphs)), desc=f"Processing {self.split} dataset"
@@ -754,7 +755,7 @@ class VOCSuperpixelsDataset(DGLDataset):
 
     def load(self):
         with open(self.graph_path, "rb") as file:
-            graphs = pickle.load(file)
+            graphs = fickling.load(file)
             self.graphs = graphs
 
     def save(self):
@@ -1003,7 +1004,7 @@ class COCOSuperpixelsDataset(DGLDataset):
 
     def process(self):
         with open(self.raw_data_path, "rb") as file:
-            graphs = pickle.load(file)
+            graphs = fickling.load(file)
 
         label_map = self.label_remap()
 
@@ -1038,7 +1039,7 @@ class COCOSuperpixelsDataset(DGLDataset):
 
     def load(self):
         with open(self.graph_path, "rb") as file:
-            graphs = pickle.load(file)
+            graphs = fickling.load(file)
             self.graphs = graphs
 
     def save(self):

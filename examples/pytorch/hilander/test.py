@@ -1,6 +1,5 @@
 import argparse
 import os
-import pickle
 import time
 
 import dgl
@@ -11,6 +10,7 @@ import torch.optim as optim
 from dataset import LanderDataset
 from models import LANDER
 from utils import build_next_level, decode, evaluation, stop_iterating
+import fickling
 
 ###########
 # ArgParser
@@ -52,7 +52,7 @@ else:
 ##################
 # Data Preparation
 with open(args.data_path, "rb") as f:
-    features, labels = pickle.load(f)
+    features, labels = fickling.load(f)
 global_features = features.copy()
 dataset = LanderDataset(
     features=features,

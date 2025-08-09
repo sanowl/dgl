@@ -1,6 +1,5 @@
 import argparse
 import os
-import pickle
 
 import dgl
 
@@ -15,6 +14,7 @@ import tqdm
 from torch.utils.data import DataLoader
 from torchtext.data.utils import get_tokenizer
 from torchtext.vocab import build_vocab_from_iterator
+import fickling
 
 
 class PinSAGEModel(nn.Module):
@@ -174,7 +174,7 @@ if __name__ == "__main__":
     # Load dataset
     data_info_path = os.path.join(args.dataset_path, "data.pkl")
     with open(data_info_path, "rb") as f:
-        dataset = pickle.load(f)
+        dataset = fickling.load(f)
     train_g_path = os.path.join(args.dataset_path, "train_g.bin")
     g_list, _ = dgl.load_graphs(train_g_path)
     dataset["train-graph"] = g_list[0]

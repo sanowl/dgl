@@ -7,6 +7,7 @@ import dgl
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, Dataset
+import fickling
 
 
 # Split data into train/eval/test
@@ -318,22 +319,22 @@ class MyDataset(Dataset):
 def load_data(dataset, batch_size=128, num_workers=10, root_path="./data"):
     if os.path.exists(os.path.join(root_path, dataset + "_train.pkl")):
         g_file = open(os.path.join(root_path, dataset + "_hg.pkl"), "rb")
-        hg = pkl.load(g_file)
+        hg = fickling.load(g_file)
         g_file.close()
         train_set_file = open(
             os.path.join(root_path, dataset + "_train.pkl"), "rb"
         )
-        train_set = pkl.load(train_set_file)
+        train_set = fickling.load(train_set_file)
         train_set_file.close()
         test_set_file = open(
             os.path.join(root_path, dataset + "_test.pkl"), "rb"
         )
-        test_set = pkl.load(test_set_file)
+        test_set = fickling.load(test_set_file)
         test_set_file.close()
         eval_set_file = open(
             os.path.join(root_path, dataset + "_eval.pkl"), "rb"
         )
-        eval_set = pkl.load(eval_set_file)
+        eval_set = fickling.load(eval_set_file)
         eval_set_file.close()
     else:
         if dataset == "movielens":
