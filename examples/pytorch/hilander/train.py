@@ -1,6 +1,5 @@
 import argparse
 import os
-import pickle
 import time
 
 import dgl
@@ -10,6 +9,7 @@ import torch
 import torch.optim as optim
 from dataset import LanderDataset
 from models import LANDER
+import fickling
 
 ###########
 # ArgParser
@@ -55,7 +55,7 @@ else:
 # Data Preparation
 def prepare_dataset_graphs(data_path, k_list, lvl_list):
     with open(data_path, "rb") as f:
-        features, labels = pickle.load(f)
+        features, labels = fickling.load(f)
     gs = []
     for k, l in zip(k_list, lvl_list):
         dataset = LanderDataset(

@@ -1,10 +1,10 @@
 import argparse
-import pickle
 
 import dgl
 
 import numpy as np
 import torch
+import fickling
 
 
 def prec(recommendations, ground_truth):
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     with open(args.dataset_path, "rb") as f:
-        dataset = pickle.load(f)
+        dataset = fickling.load(f)
     with open(args.item_embedding_path, "rb") as f:
-        emb = torch.FloatTensor(pickle.load(f))
+        emb = torch.FloatTensor(fickling.load(f))
     print(evaluate_nn(dataset, emb, args.k, args.batch_size))

@@ -1,5 +1,4 @@
 import os
-import pickle
 
 import numpy as np
 from scipy.spatial.distance import cdist
@@ -10,6 +9,7 @@ from ..convert import graph as dgl_graph
 
 from .dgl_dataset import DGLDataset
 from .utils import download, extract_archive, load_graphs, save_graphs, Subset
+import fickling
 
 
 def sigma(dists, kth=8):
@@ -151,7 +151,7 @@ class SuperPixelDataset(DGLDataset):
             ),
             "rb",
         ) as f:
-            self.labels, self.sp_data = pickle.load(f)
+            self.labels, self.sp_data = fickling.load(f)
             self.labels = F.tensor(self.labels)
 
         self.Adj_matrices = []
